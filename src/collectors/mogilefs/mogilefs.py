@@ -43,7 +43,7 @@ class MogilefsCollector(diamond.collector.Collector):
             name, var = line.partition(" ")[::2]
             myvars[name.strip()] = var
 
-        for key, value in myvars.iteritems():
+        for key, value in myvars.items():
             # Set Metric Name
             metric_name = key
             # Set Metric Value
