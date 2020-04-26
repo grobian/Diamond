@@ -70,22 +70,22 @@ class TestMesosCGroupCollector(CollectorTestCase):
             if path.endswith('cpuacct/mesos/%s/cpuacct.usage' % task_id):
                 fixture = self.getFixture('cpuacct.usage')
                 m = mock_open(read_data=fixture.getvalue())
-                m.return_value(fixture)
+                m.return_value = fixture
                 return m
             elif path.endswith('cpuacct/mesos/%s/cpuacct.stat' % task_id):
                 fixture = self.getFixture('cpuacct.stat')
                 m = mock_open(read_data=fixture.getvalue())
-                m.return_value(fixture)
+                m.return_value = fixture
                 return m
             elif path.endswith('cpu/mesos/%s/cpu.stat' % task_id):
                 fixture = self.getFixture('cpu.stat')
                 m = mock_open(read_data=fixture.getvalue())
-                m.return_value(fixture)
+                m.return_value = fixture
                 return m
             elif path.endswith('memory/mesos/%s/memory.stat' % task_id):
                 fixture = self.getFixture('memory.stat')
                 m = mock_open(read_data=fixture.getvalue())
-                m.return_value(fixture)
+                m.return_value = fixture
                 return m
             else:
                 patch_open.stop()
