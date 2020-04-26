@@ -66,10 +66,10 @@ def dict_to_paths(dict_):
     }
     """
     metrics = {}
-    for k, v in dict_.iteritems():
+    for k, v in dict_.items():
         if isinstance(v, dict):
             submetrics = dict_to_paths(v)
-            for subk, subv in submetrics.iteritems():
+            for subk, subv in submetrics.items():
                 metrics['.'.join([str(k), str(subk)])] = subv
         else:
             metrics[k] = v
@@ -115,7 +115,7 @@ class MemcachedSlabCollector(diamond.collector.Collector):
         unparsed_slab_stats = self.get_slab_stats()
         slab_stats = parse_slab_stats(unparsed_slab_stats)
         paths = dict_to_paths(slab_stats)
-        for path, value in paths.iteritems():
+        for path, value in paths.items():
             # Add path and prefix to metric (e.g.
             # 'servers.cache-main-01.memchached_slab')
             full_path = self.get_metric_path(path)

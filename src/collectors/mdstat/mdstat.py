@@ -77,7 +77,7 @@ class MdStatCollector(diamond.collector.Collector):
             consisting of the hierarchically concatenated keys
             of its branch.
             """
-            for key, value in d.iteritems():
+            for key, value in d.items():
                 if isinstance(value, dict):
                     if metric_name == '':
                         metric_name_next = key
@@ -249,7 +249,7 @@ class MdStatCollector(diamond.collector.Collector):
         array_status_dict_sanitizied = {}
 
         # convert all non None values to float
-        for key, value in array_status_dict.iteritems():
+        for key, value in array_status_dict.items():
             if not value:
                 continue
             if key == 'superblock_version':
@@ -303,7 +303,7 @@ class MdStatCollector(diamond.collector.Collector):
         array_bitmap_dict_sanitizied = {}
 
         # convert all values to int
-        for key, value in array_bitmap_dict.iteritems():
+        for key, value in array_bitmap_dict.items():
                 if not value:
                     continue
                 array_bitmap_dict_sanitizied[key] = int(value)
