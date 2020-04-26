@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
 ##########################################################################
-import redis
-
 from test import CollectorTestCase
 from test import get_collector_config
 from test import unittest
