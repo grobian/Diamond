@@ -6,7 +6,7 @@ from test import CollectorTestCase
 from test import get_collector_config
 from test import unittest
 from test import Mock
-from mock import call
+from mock import call, create_autospec
 from test import patch
 
 from diamond.collector import Collector
@@ -142,8 +142,8 @@ class TestSolrCollector(CollectorTestCase):
     @patch.object(Collector, 'publish')
     def test_should_fail_gracefully(self, publish_mock, urlopen_mock):
         urlopen_mock.return_value = self.getFixture('stats_blank')
-        urlopen_mock = patch(URLOPEN, Mock(
-                             return_value=self.getFixture('stats_blank')))
+        urlopen_mock = create_autospec(patch(URLOPEN, Mock(
+                             return_value=self.getFixture('stats_blank'))))
 
         self.collector.collect()
 
