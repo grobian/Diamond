@@ -9,6 +9,7 @@ from test import patch
 from mock import call
 
 from diamond.collector import Collector
+from diamond.pycompat import URLOPEN
 
 from eventstoreprojections import EventstoreProjectionsCollector
 
