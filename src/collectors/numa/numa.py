@@ -13,7 +13,7 @@ from subprocess import Popen, PIPE
 from re import compile as re_compile
 import logging
 
-node_re = re_compile('(?P<node>^node \d+ (free|size)): (?P<size>\d+) \MB')
+node_re = re_compile('(?P<node>^node \d+ (free|size)): (?P<size>\d+) MB')
 
 
 class NumaCollector(diamond.collector.Collector):
