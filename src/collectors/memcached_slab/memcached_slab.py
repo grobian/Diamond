@@ -39,7 +39,7 @@ def parse_slab_stats(slab_stats):
     """
     stats_dict = {'slabs': defaultdict(lambda: {})}
 
-    for line in slab_stats.splitlines():
+    for line in slab_stats.decode("us-ascii").splitlines():
         if line == 'END':
             break
         # e.g.: "STAT 1:chunks_per_page 10922"
