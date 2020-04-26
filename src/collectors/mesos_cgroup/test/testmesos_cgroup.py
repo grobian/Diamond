@@ -70,22 +70,22 @@ class TestMesosCGroupCollector(CollectorTestCase):
             if path.endswith('cpuacct/mesos/%s/cpuacct.usage' % task_id):
                 fixture = self.getFixture('cpuacct.usage')
                 m = mock_open(read_data=fixture.getvalue())
-                m.__enter__.return_value = fixture
+                m.return_value(fixture)
                 return m
             elif path.endswith('cpuacct/mesos/%s/cpuacct.stat' % task_id):
                 fixture = self.getFixture('cpuacct.stat')
                 m = mock_open(read_data=fixture.getvalue())
-                m.__enter__.return_value = fixture
+                m.return_value(fixture)
                 return m
             elif path.endswith('cpu/mesos/%s/cpu.stat' % task_id):
                 fixture = self.getFixture('cpu.stat')
                 m = mock_open(read_data=fixture.getvalue())
-                m.__enter__.return_value = fixture
+                m.return_value(fixture)
                 return m
             elif path.endswith('memory/mesos/%s/memory.stat' % task_id):
                 fixture = self.getFixture('memory.stat')
                 m = mock_open(read_data=fixture.getvalue())
-                m.__enter__.return_value = fixture
+                m.return_value(fixture)
                 return m
             else:
                 patch_open.stop()
@@ -96,18 +96,20 @@ class TestMesosCGroupCollector(CollectorTestCase):
         patch_urlopen = patch(URLOPEN, Mock(side_effect=urlopen_se))
         patch_listdir = patch('os.listdir', Mock(side_effect=listdir_se))
         patch_isdir = patch('os.path.isdir', Mock(side_effect=isdir_se))
-        patch_open = patch('builtins.open', MagicMock(spec=file,
+        patch_open = patch('builtins.open', MagicMock(spec=open,
                                                          side_effect=open_se))
 
         patch_urlopen.start()
         patch_listdir.start()
         patch_isdir.start()
         patch_open.start()
-        self.collector.collect()
-        patch_open.stop()
-        patch_isdir.stop()
-        patch_listdir.stop()
-        patch_urlopen.stop()
+        try:
+            self.collector.collect()
+        finally:
+            patch_open.stop()
+            patch_isdir.stop()
+            patch_listdir.stop()
+            patch_urlopen.stop()
 
         metrics = self.get_metrics()
         self.setDocExample(collector=self.collector.__class__.__name__,
