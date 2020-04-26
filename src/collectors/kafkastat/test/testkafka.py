@@ -13,7 +13,7 @@ from test import unittest
 from test import patch
 
 from diamond.collector import Collector
-from diamond.pycompat import long, URLError, URLOPEN
+from diamond.pycompat import long, URLError, URLOPEN, urlparse
 from kafkastat import KafkaCollector
 
 ##########
