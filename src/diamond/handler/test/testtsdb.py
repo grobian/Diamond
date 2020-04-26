@@ -13,8 +13,6 @@ import contextlib
 from diamond.handler.tsdb import TSDBHandler
 
 
-@patch('diamond.handler.tsdb.urllib2.urlopen')
-@patch('diamond.handler.tsdb.urllib2.Request')
 class TestTSDBdHandler(unittest.TestCase):
 
     def setUp(self):

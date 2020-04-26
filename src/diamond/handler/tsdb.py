@@ -79,8 +79,8 @@ high.
 
 from Handler import Handler
 from diamond.metric import Metric
-import urllib2
-import StringIO
+import diamond.pycompat
+from io import StringIO
 import gzip
 import base64
 import json
@@ -233,19 +233,19 @@ class TSDBHandler(Handler):
         while retry < 3 and success is False:
             self.log.debug(content)
             try:
-                request = urllib2.Request("http://"+self.host+":" +
+                request = Request("http://"+self.host+":" +
                                           str(self.port)+"/api/put",
                                           content, self.httpheader)
-                response = urllib2.urlopen(url=request, timeout=self.timeout)
+                response = urlopen(url=request, timeout=self.timeout)
                 if response.getcode() < 301:
                     self.log.debug(response.read())
                     # Transaction should be finished
                     self.log.debug(response.getcode())
                     success = True
-            except urllib2.HTTPError as e:
+            except HTTPError as e:
                 self.log.error("HTTP Error Code: "+str(e.code))
                 self.log.error("Message : "+str(e.reason))
-            except urllib2.URLError as e:
+            except URLError as e:
                 self.log.error("Connection Error: "+str(e.reason))
             finally:
                 retry += 1
