@@ -276,8 +276,8 @@ class JolokiaCollector(diamond.collector.Collector):
         username = self.config["username"]
         password = self.config["password"]
         if username is not None and password is not None:
-            base64string = base64.encodestring('%s:%s' % (
-                username, password)).replace('\n', '')
+            base64string = base64.encodestring(bytes(('%s:%s' % (
+                username, password)).replace('\n', ''), "us-ascii"))
             req.add_header("Authorization", "Basic %s" % base64string)
         return req
 
