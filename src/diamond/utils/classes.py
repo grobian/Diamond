@@ -121,7 +121,6 @@ def load_collectors_from_paths(paths):
 
     if isinstance(paths, str):
         paths = paths.split(',')
-        paths = map(str.strip, paths)
 
     load_include_path(paths)
 
