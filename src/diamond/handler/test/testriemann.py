@@ -62,7 +62,7 @@ class TestRiemannHandler(unittest.TestCase):
             self.assertEqual(event, {
                 'host': u'com.example.www',
                 'service': u'servers.cpu.total.idle',
-                'time': 1234567L,
+                'time': 1234567,
                 'metric_f': 0.0,
             })
 
