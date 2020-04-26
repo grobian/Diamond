@@ -76,7 +76,7 @@ class EtcdCollector(diamond.collector.Collector):
     def collect_store_metrics(self):
         metrics = self.get_store_metrics()
 
-        for k, v in metrics.iteritems():
+        for k, v in metrics.items():
             key = self.clean_up(k)
             self.publish("store.%s" % key, v)
 
