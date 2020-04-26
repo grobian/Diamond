@@ -6,7 +6,7 @@ from test import unittest
 from test import Mock
 
 import configobj
-import StringIO
+from io import StringIO
 import gzip
 import contextlib
 
