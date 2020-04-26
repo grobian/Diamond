@@ -12,8 +12,11 @@ Renzo Toma <rtoma@bol.com>
 """
 
 import diamond.collector
-import urllib2
-from StringIO import StringIO
+import diamond.pycompat
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 import re
 import xml.etree.cElementTree as ElementTree
 
@@ -111,7 +114,10 @@ class EndecaDgraphCollector(diamond.collector.Collector):
         url = 'http://%s:%d/admin?op=stats' % (self.config['host'],
                                                self.config['port'])
         try:
-            xml = urllib2.urlopen(url, timeout=self.config['timeout']).read()
+            xml = diamond.pycompat.urlopen(
+                url,
+                timeout=self.config['timeout']).read(
+                )
         except Exception as e:
             self.log.error('Could not connect to endeca on %s: %s' % (url, e))
             return {}

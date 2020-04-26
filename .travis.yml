@@ -4,6 +4,9 @@ sudo: false
 language: python
 python:
   - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.6"
 
 cache:
   directories:
@@ -12,7 +15,8 @@ cache:
 # command to install dependencies, e.g. pip install -r requirements.txt
 install:
     - pip install Cython
-    - pip install -r .travis.requirements.txt
+    - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then pip install -r .travis.requirements.txt; fi
+    - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then pip install -r .travis.requirements3.txt; fi
     - pip install pep8==1.5.7
     - pip install coveralls
 

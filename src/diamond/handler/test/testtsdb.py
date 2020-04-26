@@ -3,9 +3,8 @@
 ##########################################################################
 
 from test import unittest
-from mock import patch
-from diamond.metric import Metric
-import urllib2
+from test import Mock
+
 import configobj
 import StringIO
 import gzip
