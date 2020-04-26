@@ -6,7 +6,7 @@ do not try to use it as a normal handler
 """
 
 from . Handler import Handler
-import Queue
+import queue
 
 
 class QueueHandler(Handler):
@@ -34,7 +34,7 @@ class QueueHandler(Handler):
         """
         try:
             self.queue.put(metric, block=False)
-        except Queue.Full:
+        except queue.Full:
             self._throttle_error('Queue full, check handlers for delays')
 
     def flush(self):
@@ -48,5 +48,5 @@ class QueueHandler(Handler):
         # Send a None down the queue to indicate a flush
         try:
             self.queue.put(None, block=False)
-        except Queue.Full:
+        except queue.Full:
             self._throttle_error('Queue full, check handlers for delays')
