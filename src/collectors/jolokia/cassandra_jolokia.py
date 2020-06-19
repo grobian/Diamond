@@ -84,7 +84,7 @@ class CassandraJolokiaCollector(JolokiaCollector):
     # million, with less precision as the offsets get larger.
     def compute_percentile(self, offsets, buckets, percentile_int):
         non_zero_points_sum = sum(buckets)
-        if non_zero_points_sum is 0:
+        if non_zero_points_sum == 0:
             return 0
         middle_point_index = math.floor(
             non_zero_points_sum * (percentile_int / float(100)))

@@ -338,7 +338,7 @@ class NetAppCollector(diamond.collector.Collector):
                         # Shorten the name for disks as they are very long and
                         # padded with zeroes, eg:
                         # 5000C500:3A236B0B:00000000:00000000:00000000:...
-                        if na_object is "disk":
+                        if na_object == "disk":
                             non_zero_blocks = [
                                 block for block in raw_name.split(":")
                                 if block != "00000000"
