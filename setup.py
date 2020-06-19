@@ -4,7 +4,6 @@
 import sys
 import os
 from glob import glob
-import platform
 
 
 def running_under_virtualenv():
@@ -38,12 +37,6 @@ else:
         ('share/diamond/user_scripts', []),
     ]
 
-    distro = platform.dist()[0]
-    distro_major_version = platform.dist()[1].split('.')[0]
-    if not distro:
-        if 'amzn' in platform.uname()[2]:
-            distro = 'centos'
-
     if running_under_virtualenv():
         data_files.append(('etc/diamond',
                            glob('conf/*.conf.*')))
@@ -61,35 +54,13 @@ else:
         data_files.append(('/var/log/diamond',
                            ['.keep']))
 
-        if distro == 'Ubuntu':
-            if distro_major_version >= 16:
-                data_files.append(('/usr/lib/systemd/system',
-                                   ['rpm/systemd/diamond.service']))
-            else:
-                data_files.append(('/etc/init',
-                                   ['debian/diamond.upstart']))
-        if distro in ['centos', 'redhat', 'debian', 'fedora', 'oracle']:
-            data_files.append(('/etc/init.d',
-                               ['bin/init.d/diamond']))
-            if distro_major_version >= 7 and not distro == 'debian':
-                data_files.append(('/usr/lib/systemd/system',
-                                   ['rpm/systemd/diamond.service']))
-            elif distro_major_version >= 6 and not distro == 'debian':
-                data_files.append(('/etc/init',
-                                   ['rpm/upstart/diamond.conf']))
-
     # Support packages being called differently on different distros
 
     # Are we in a virtenv?
     if running_under_virtualenv():
         install_requires = ['configobj', 'psutil', ]
     else:
-        if distro in ['debian', 'Ubuntu']:
-            install_requires = ['python-configobj', 'python-psutil', ]
-        # Default back to pip style requires
-        else:
-            install_requires = ['configobj', 'psutil', ]
-
+        install_requires = ['configobj', 'psutil', ]
 
 def get_version():
     """
@@ -146,11 +117,11 @@ setup(
     packages=['diamond', 'diamond.handler', 'diamond.utils'],
     scripts=['bin/diamond', 'bin/diamond-setup'],
     data_files=data_files,
-    python_requires='==2.7',
+    python_requires='>=3',
     install_requires=install_requires,
     classifiers=[
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
     ],
     ** setup_kwargs
 )
