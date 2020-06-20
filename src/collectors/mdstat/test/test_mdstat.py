@@ -34,7 +34,7 @@ class TestMdStatCollector(CollectorTestCase):
             # on platforms that don't provide /proc/mdstat: don't bother
             # testing this.
             return
-        open_mock.return_value = io.BytesIO('')
+        open_mock.return_value = io.BytesIO(''.encode("ascii"))
         self.collector.collect()
         open_mock.assert_called_once_with('/proc/mdstat', 'r')
 
