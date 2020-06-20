@@ -241,10 +241,11 @@ disabledTests = {
         # these tests need a Python guru to figure out what is the
         # problem -- various cryptic errors from the interpreter most of
         # the time mock related
+        "test_portstat",
         "testdocker_collector",
         "testelasticsearch",
-        "testmesos_cgroup",
         "testmesos",
+        "testmesos_cgroup",
         "testrabbitmq",
         "testsolr",
         "testtsdb",
