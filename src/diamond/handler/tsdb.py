@@ -79,6 +79,7 @@ high.
 
 from Handler import Handler
 from diamond.metric import Metric
+from diamond.pycompat import Request, HTTPError, urlopen, URLError
 import diamond.pycompat
 from io import StringIO
 import gzip
@@ -235,7 +236,8 @@ class TSDBHandler(Handler):
             try:
                 request = Request("http://"+self.host+":" +
                                           str(self.port)+"/api/put",
-                                          content, self.httpheader)
+                                          content.encode('utf-8'),
+                                          self.httpheader)
                 response = urlopen(url=request, timeout=self.timeout)
                 if response.getcode() < 301:
                     self.log.debug(response.read())
